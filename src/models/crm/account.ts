@@ -26,7 +26,7 @@ export interface Account {
   AccountStageLabel: string;
   DomainName?: unknown;
   LatestSubscription?: unknown;
-  CurrentSubscription?: unknown;
+  CurrentSubscription?: Subscription;
   PrimaryContact?: unknown;
   PrimarySubscription?: unknown;
   RecaptchaToken?: unknown;
