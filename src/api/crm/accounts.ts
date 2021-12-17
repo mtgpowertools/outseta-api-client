@@ -14,7 +14,7 @@ export class Accounts {
   }
 
   /**
-   * Get all accounts in the Outseta CRM.
+   * Get all accounts in the Outseta CRM sorted by Created DESC.
    *
    * ```typescript
    * const client = new OutsetaApiClient({
@@ -45,7 +45,8 @@ export class Accounts {
     const request = new Request(this.store, 'crm/accounts')
       .authenticateAsServer()
       .withParams({
-        fields: options.fields ? options.fields : '*,PersonAccount.*,PersonAccount.Person.Uid'
+        fields: options.fields ? options.fields : '*,PersonAccount.*,PersonAccount.Person.Uid',
+        orderBy: "Created+DESC"
       });
     if (options.limit) request.withParams({ limit: `${options.limit}` });
     if (options.offset) request.withParams({ offset: `${options.offset}` });

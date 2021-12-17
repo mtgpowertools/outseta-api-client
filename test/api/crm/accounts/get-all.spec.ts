@@ -33,7 +33,7 @@ describe('api', () => {
         it('handles successful request', async () => {
           const responseHandler: ResponseHandler = (request) => {
             expect(request.requestHeaders['authorization']).toBe('Outseta example_key:example_secret');
-            expect(request.queryParams).toEqual({ fields: '*,PersonAccount.*,PersonAccount.Person.Uid' });
+            expect(request.queryParams).toEqual({ fields: '*,PersonAccount.*,PersonAccount.Person.Uid', orderBy: "Created+DESC" });
             expect(request.requestBody).toBeNull();
             expect(request.requestHeaders['content-type']).toBe('application/json');
 
@@ -60,7 +60,8 @@ describe('api', () => {
               offset: '10',
               limit: '20',
               AccountStage: '3',
-              fields: '*'
+              fields: '*', 
+              orderBy: "Created+DESC" 
             });
             expect(request.requestBody).toBeNull();
             expect(request.requestHeaders['content-type']).toBe('application/json');
@@ -89,7 +90,7 @@ describe('api', () => {
           const responseHandler: ResponseHandler = (request) => {
             expect(request.requestHeaders['authorization']).toBe('Outseta example_key:example_secret');
             expect(request.queryParams).toEqual({
-              fields: '*,PersonAccount.*,PersonAccount.Person.Uid'
+              fields: '*,PersonAccount.*,PersonAccount.Person.Uid', orderBy: "Created+DESC" 
             });
             expect(request.requestBody).toBeNull();
             expect(request.requestHeaders['content-type']).toBe('application/json');
