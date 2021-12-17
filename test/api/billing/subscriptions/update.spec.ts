@@ -36,7 +36,6 @@ describe('api', () => {
             expect(request.requestHeaders['authorization']).toBe('Outseta example_key:example_secret');
             expect(request.queryParams).toEqual({});
             expect(JSON.parse(request.requestBody)).toEqual({
-              Uid: 'dQGxEz94',
               Plan: {
                 Uid: 'wZmNw7Q2'
               },
@@ -51,7 +50,7 @@ describe('api', () => {
             return [
               200,
               {'Content-Type': 'application/json'},
-              JSON.stringify(exampleResponse)
+              JSON.stringify({...exampleResponse, Uid: "ASDFGHJK"})
             ];
           };
           server = new Pretender(function () {
@@ -70,7 +69,7 @@ describe('api', () => {
             BillingRenewalTerm: BillingRenewalTerm.Monthly
           }) as Subscription;
 
-          expect(response.Uid).toBe('dQGxEz94');
+          expect(response.Uid).toBe('ASDFGHJK');
         });
 
         it('handles validation errors', async () => {
@@ -78,7 +77,6 @@ describe('api', () => {
             expect(request.requestHeaders['authorization']).toBe('Outseta example_key:example_secret');
             expect(request.queryParams).toEqual({});
             expect(JSON.parse(request.requestBody)).toEqual({
-              Uid: 'dQGxEz94',
               Plan: {
                 Uid: 'wZmNw7Q2'
               },
@@ -124,7 +122,6 @@ describe('api', () => {
             expect(request.requestHeaders['authorization']).toBe('Outseta example_key:example_secret');
             expect(request.queryParams).toEqual({});
             expect(JSON.parse(request.requestBody)).toEqual({
-              Uid: 'dQGxEz94',
               Plan: {
                 Uid: 'malformed'
               },

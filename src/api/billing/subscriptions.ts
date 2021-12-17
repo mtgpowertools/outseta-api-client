@@ -214,9 +214,10 @@ export class Subscriptions {
    *  non-"OK" status, the whole response object will be thrown.
    */
   public async update(subscription: SubscriptionUpdate): Promise<Subscription | ValidationError<Subscription>> {
-    const request = new Request(this.store, `billing/subscriptions/${subscription.Uid}/changesubscription`)
+    const {Uid, ...payload} = subscription;
+    const request = new Request(this.store, `billing/subscriptions/${Uid}/changesubscription`)
       .authenticateAsServer()
-      .withBody(subscription);
+      .withBody(payload);
     const response = await request.put();
 
     if (response.status === 400)
