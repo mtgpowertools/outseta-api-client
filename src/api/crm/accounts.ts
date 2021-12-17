@@ -46,7 +46,8 @@ export class Accounts {
       .authenticateAsServer()
       .withParams({
         fields: options.fields ? options.fields : '*,PersonAccount.*,PersonAccount.Person.Uid',
-        orderBy: "Created+DESC"
+      }).withParams({
+        orderBy: "Created"
       });
     if (options.limit) request.withParams({ limit: `${options.limit}` });
     if (options.offset) request.withParams({ offset: `${options.offset}` });
