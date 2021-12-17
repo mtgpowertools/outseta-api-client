@@ -47,7 +47,7 @@ export class Accounts {
       .withParams({
         fields: options.fields ? options.fields : '*,PersonAccount.*,PersonAccount.Person.Uid',
       }).withParams({
-        orderBy: "Created"
+        orderBy: "Created DESC"
       });
     if (options.limit) request.withParams({ limit: `${options.limit}` });
     if (options.offset) request.withParams({ offset: `${options.offset}` });
