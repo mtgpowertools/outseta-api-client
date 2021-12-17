@@ -34,4 +34,12 @@ export interface Account {
   Uid: string;
   Created: Date;
   Updated: Date;
+
+  //PowerTools custom properties
+
+  DayPasses: string
+  discord_nickname: string
+  Referrer: string
+  ReferralCode: string
+  vat_id: string
 }

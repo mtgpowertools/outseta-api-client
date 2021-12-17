@@ -29,4 +29,9 @@ export interface Person {
   Uid?: string;
   Created?: Date;
   Updated?: Date;
+
+  // PowerTools custom properties
+  
+  AnnouncedSubscriptionCost?: number;
+  EmailPreferences?: string[]
 }
