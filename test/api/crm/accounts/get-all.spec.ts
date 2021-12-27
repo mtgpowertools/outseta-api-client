@@ -33,7 +33,7 @@ describe('api', () => {
         it('handles successful request', async () => {
           const responseHandler: ResponseHandler = (request) => {
             expect(request.requestHeaders['authorization']).toBe('Outseta example_key:example_secret');
-            expect(request.queryParams).toEqual({ fields: '*,PersonAccount.*,PersonAccount.Person.Uid', orderBy: "Created DESC" });
+            expect(request.queryParams).toEqual({ fields: '*,PersonAccount.*,PersonAccount.Person.Uid' });
             expect(request.requestBody).toBeNull();
             expect(request.requestHeaders['content-type']).toBe('application/json');
 
@@ -53,7 +53,7 @@ describe('api', () => {
           expect(response.items[0].Name).toBe('Demo Account');
         });
 
-        it('handles request with pagination, filters, fields', async () => {
+        it('handles request with pagination, filters, fields, updated', async () => {
           const responseHandler: ResponseHandler = (request) => {
             expect(request.requestHeaders['authorization']).toBe('Outseta example_key:example_secret');
             expect(request.queryParams).toEqual({
@@ -61,7 +61,8 @@ describe('api', () => {
               limit: '20',
               AccountStage: '3',
               fields: '*', 
-              orderBy: "Created DESC" 
+              orderBy: "Created DESC",
+              updated: '4'
             });
             expect(request.requestBody).toBeNull();
             expect(request.requestHeaders['content-type']).toBe('application/json');
@@ -80,7 +81,9 @@ describe('api', () => {
             offset: 10,
             limit: 20,
             accountStage: AccountStage.Subscribing,
-            fields: '*'
+            fields: '*',
+            orderBy: "Created DESC",
+            updated: 4
           });
           expect(response.metadata.total).toBe(0);
           expect(response.items).toHaveSize(0);
@@ -90,7 +93,7 @@ describe('api', () => {
           const responseHandler: ResponseHandler = (request) => {
             expect(request.requestHeaders['authorization']).toBe('Outseta example_key:example_secret');
             expect(request.queryParams).toEqual({
-              fields: '*,PersonAccount.*,PersonAccount.Person.Uid', orderBy: "Created DESC" 
+              fields: '*,PersonAccount.*,PersonAccount.Person.Uid'
             });
             expect(request.requestBody).toBeNull();
             expect(request.requestHeaders['content-type']).toBe('application/json');

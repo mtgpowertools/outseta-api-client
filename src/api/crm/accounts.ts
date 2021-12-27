@@ -14,7 +14,7 @@ export class Accounts {
   }
 
   /**
-   * Get all accounts in the Outseta CRM sorted by Created DESC.
+   * Get all accounts in the Outseta CRM.
    *
    * ```typescript
    * const client = new OutsetaApiClient({
@@ -27,6 +27,8 @@ export class Accounts {
    * ```
    *
    * @param options.limit The number of results returned by the API.
+   * @param options.orderBy Sort the results by a field - "Field DESC|ASC"
+   * @param options.updated The date of the last update in hours - 5 => updated in last 5 hours 
    * @param options.offset For pagination; returns (limit) results after this value.
    * @param options.accountStage Filter the results to only users in this account stage.
    * @param options.fields Not all fields on the model are returned by default - you can request specific fields with a
@@ -41,17 +43,19 @@ export class Accounts {
     offset?: number,
     accountStage?: AccountStage,
     fields?: string
+    updated?: number
+    orderBy?: string
   } = {}): Promise<List<Account>> {
     const request = new Request(this.store, 'crm/accounts')
       .authenticateAsServer()
       .withParams({
         fields: options.fields ? options.fields : '*,PersonAccount.*,PersonAccount.Person.Uid',
-      }).withParams({
-        orderBy: "Created DESC"
       });
     if (options.limit) request.withParams({ limit: `${options.limit}` });
     if (options.offset) request.withParams({ offset: `${options.offset}` });
     if (options.accountStage) request.withParams({ AccountStage: `${options.accountStage}` });
+    if (options.updated) request.withParams({ updated: `${options.updated}` });
+    if (options.orderBy) request.withParams({ orderBy: `${options.orderBy}` });
 
     const response = await request.get();
 
